@@ -1,0 +1,36 @@
+from itertools import permutations
+def dig(m):
+  matrix = []
+  for s in m:
+    matrix.append([int(x) for x in s.replace('(', '').replace(')', '').split(',')])
+  return matrix
+
+def output(x):
+  out = ''
+  tasks = [a for a in range(1, len(x) + 1)]
+  mac = [a for a in range(1, len(x) + 1)]
+  cheapest = None
+  best = None
+  for i in permutations(tasks):
+    cost =0
+    for j, task in enumerate(i):
+      cost += x[j][task-1]
+    if cheapest == None or cost<cheapest:
+      cheapest = cost
+      best = i
+  for i, j in enumerate(best):
+    out += "(%s-%s)" % (mac[i], j)
+      
+  
+  return out
+
+def OptimalAssignments(strArr):
+  
+  new_str = dig(strArr)
+  result = output(new_str) 
+
+  # code goes here
+  return result
+
+# keep this function call here 
+print OptimalAssignments(raw_input())
